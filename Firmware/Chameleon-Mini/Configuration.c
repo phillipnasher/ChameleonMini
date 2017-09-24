@@ -188,6 +188,25 @@ static const PROGMEM ConfigurationType ConfigurationTable[] = {
 		.ReadOnly = false
     },
 #endif
+    
+#ifdef CONFIG_ISO15693_READER_SUPPORT
+    [CONFIG_ISO15693_READER] = {
+        .CodecInitFunc = Reader15693CodecInit,
+    	.CodecDeInitFunc = Reader15693CodecDeInit,
+    	.CodecTaskFunc = Reader15693CodecTask,
+		.ApplicationInitFunc = Reader15693AppInit,
+		.ApplicationResetFunc = Reader15693AppReset,
+		.ApplicationTaskFunc = Reader15693AppTask,
+		.ApplicationTickFunc = Reader15693AppTick,
+		.ApplicationProcessFunc = Reader15693AppProcess,
+		.ApplicationGetUidFunc = ApplicationGetUidDummy,
+		.ApplicationSetUidFunc = ApplicationSetUidDummy,
+		.UidSize = 0,
+		.MemorySize = 0,
+		.ReadOnly = false
+    },
+#endif    
+
 };
 
 ConfigurationType ActiveConfiguration;

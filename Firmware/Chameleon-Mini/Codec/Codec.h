@@ -16,6 +16,7 @@
 
 #include "ISO14443-2A.h"
 #include "Reader14443-2A.h"
+#include "Reader15693-2.h"
 
 /* Timing definitions for ISO14443A */
 #define ISO14443A_SUBCARRIER_DIVIDER    16

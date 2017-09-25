@@ -35,6 +35,9 @@ static const MapEntryType PROGMEM ConfigurationMap[] = {
 #ifdef CONFIG_ISO14443A_READER_SUPPORT
 	{ .Id = CONFIG_ISO14443A_READER,	.Text = "ISO14443A_READER" },
 #endif
+#ifdef CONFIG_ISO15693_READER_SUPPORT
+	{ .Id = CONFIG_ISO15693_READER,	.Text = "ISO15693_READER" },
+#endif
 };
 
 /* Include all Codecs and Applications */

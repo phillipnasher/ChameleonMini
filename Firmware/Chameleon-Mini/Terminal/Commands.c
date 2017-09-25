@@ -16,6 +16,7 @@
 #include "../Codec/Codec.h"
 
 extern Reader14443Command Reader14443CurrentCommand;
+extern Reader15693Command Reader15693CurrentCommand;
 
 extern const PROGMEM CommandEntryType CommandTable[];
 
@@ -553,6 +554,19 @@ CommandStatusIdType CommandExecIdentifyCard(char* OutMessage)
 	Reader14443AAppInit();
 	Reader14443ACodecStart();
 	CommandLinePendingTaskTimeout = &Reader14443AAppTimeout;
+	return TIMEOUT_COMMAND;
+}
+
+CommandStatusIdType CommandExecISO15693IdentifyCard(char* OutMessage)
+{
+	if (GlobalSettings.ActiveSettingPtr->Configuration != CONFIG_ISO15693_READER)
+		return COMMAND_ERR_INVALID_USAGE_ID;
+	ApplicationReset();
+    
+	Reader15693CurrentCommand = Reader15693_Identify;
+	Reader15693AppInit();
+	Reader15693CodecStart();
+	CommandLinePendingTaskTimeout = &Reader15693AppTimeout;
 	return TIMEOUT_COMMAND;
 }
 

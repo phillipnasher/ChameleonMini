@@ -5,7 +5,7 @@
 
 #include "../Common.h"
 
-#define MAX_COMMAND_LENGTH          16
+#define MAX_COMMAND_LENGTH          20
 #define MAX_STATUS_LENGTH           32
 
 
@@ -183,6 +183,9 @@ CommandStatusIdType CommandExecAutocalibrate(char* OutMessage);
 #define COMMAND_FIELD	"FIELD"
 CommandStatusIdType CommandSetField(char* OutMessage, const char* InParam);
 CommandStatusIdType CommandGetField(char* OutMessage);
+
+#define COMMAND_ISO15693_IDENTIFY_CARD	"ISO15693_IDENTIFY"
+CommandStatusIdType CommandExecISO15693IdentifyCard(char* OutMessage);
 
 #define COMMAND_LIST_END    ""
 /* Defines the end of command list. This is no actual command */

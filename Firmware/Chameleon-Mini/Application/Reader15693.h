@@ -8,6 +8,12 @@
 #define SOC_1_OF_256_CODE       0x7E
 #define EOC_CODE                0xDF
 
+typedef enum {
+    Reader15693_Do_Nothing,
+	Reader15693_Identify
+} Reader15693Command;
+
+
 uint8_t ReaderSendBuffer[CODEC_BUFFER_SIZE];
 uint16_t ReaderSendBitCount;
 

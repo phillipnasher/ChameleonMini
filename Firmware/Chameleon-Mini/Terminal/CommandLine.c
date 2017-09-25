@@ -309,6 +309,13 @@ const PROGMEM CommandEntryType CommandTable[] = {
     .SetFunc    = CommandSetField,
     .GetFunc    = CommandGetField
   },
+  { //ISO15693_READER
+    .Command	= COMMAND_ISO15693_IDENTIFY_CARD,
+	.ExecFunc 	= CommandExecISO15693IdentifyCard,
+    .ExecParamFunc = NO_FUNCTION,
+	.SetFunc 	= NO_FUNCTION,
+	.GetFunc 	= NO_FUNCTION
+  },
   { /* This has to be last element */
     .Command    = COMMAND_LIST_END,
     .ExecFunc   = NO_FUNCTION,

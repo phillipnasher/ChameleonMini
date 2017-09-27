@@ -11,6 +11,9 @@
 #include "Codec.h"
 #include "Terminal/CommandLine.h"
 
+#define SOF_1_OF_4_CODE         0x81
+#define SOF_1_OF_256_CODE       0x84
+#define EOF_CODE                0x02
 
 /* Codec Interface */
 void Reader15693CodecInit(void);

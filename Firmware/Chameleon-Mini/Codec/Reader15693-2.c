@@ -15,6 +15,15 @@
 
 #define ISO15693_PERIOD 128 //9.4us
 
+// GPIOR0 and 1 are used as storage for the timer value of the current modulation
+#define LastBit			Codec8Reg2				// GPIOR2
+// GPIOR3 is used for some internal flags
+#define BitCount		CodecCount16Register1	// GPIOR5:4
+#define SampleRegister	GPIOR6
+#define BitCountUp		GPIOR7
+#define CodecBufferIdx	GPIOR8
+#define CodecBufferPtr	CodecPtrRegister2
+
 static volatile struct {
     volatile bool StartRead;
     volatile bool RxDone;
@@ -25,14 +34,12 @@ static volatile enum {
 	STATE_IDLE
 } State;
 
-// GPIOR0 and 1 are used as storage for the timer value of the current modulation
-#define LastBit			Codec8Reg2				// GPIOR2
-// GPIOR3 is used for some internal flags
-#define BitCount		CodecCount16Register1	// GPIOR5:4
-#define SampleRegister	GPIOR6
-#define BitCountUp		GPIOR7
-#define CodecBufferIdx	GPIOR8
-#define CodecBufferPtr	CodecPtrRegister2
+static volatile enum {
+	ONE_OF_FOUR_MODULATION,
+    ONE_OF_TWO_FIVE_SIX_MODULATION
+} PPMModulationType;
+
+
 
 void Reader15693CodecInit(void) 
 {
@@ -76,13 +83,16 @@ void Reader15693CodecDeInit(void)
 
 void Reader15693CodecTask(void) 
 {
-   // LED_PORT.OUTSET = LED_RED;
     /* Call application with received data */
     BitCount = ApplicationProcess(CodecBuffer, BitCount);
-
+    
     if (BitCount > 0)
     {
-        
+        if (CodecBuffer[0] == SOF_1_OF_4_CODE) {
+            PPMModulationType = ONE_OF_FOUR_MODULATION;
+        } else {
+            PPMModulationType = ONE_OF_TWO_FIVE_SIX_MODULATION;
+        }
     }
 }
 
